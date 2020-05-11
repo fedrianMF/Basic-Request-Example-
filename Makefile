@@ -1,6 +1,8 @@
 CONTAINER_NAME ?= requests
 CMD ?= bash
 
+init:
+	pip install -r requirements.txt
 
 check:
 	flake8 features/
