@@ -8,4 +8,4 @@ check:
 	pycodestyle features/
 
 test:
-	$(MAKE) shell CMD='behave'
+	behave

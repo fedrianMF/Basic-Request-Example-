@@ -15,7 +15,7 @@ def step_retrieve_numbers_dt(context):
         context.example.set_second_number(row["number2"])
 
 
-@given('The numbers "{firstNumber}" and "{secondNumber}" are set')
+@given('The numbers "{first_number}" and "{second_number}" are set')
 def step_retrieve_numbers(context, first_number, second_number):
     """Sample step to retrieve numbers
 
