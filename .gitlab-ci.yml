@@ -1,4 +1,4 @@
-image: "python:3.7"
+image: "python:3.8.2"
 
 before_script:
   - python --version
@@ -10,16 +10,14 @@ stages:
 flake8:
   stage: Static Analysis
   script:
-  - flake8 features/*.py
-  - flake8 features/*/*.py
+  - flake8 task/*.py
 
 pylint:
   stage: Static Analysis
   script:
-  - pylint features/*.py
-  - pylint features/*/*.py
+  - pylint task/*.py
 
 pycodestyle:
   stage: Static Analysis
   script:
-  - pycodestyle features/
+  - pycodestyle task/*.py
