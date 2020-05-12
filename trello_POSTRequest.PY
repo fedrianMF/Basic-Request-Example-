@@ -23,4 +23,3 @@ response = requests.request(
 print("Status: " + str(response.status_code))
 print(response.text)
 #Response: {"id":"5ebac11236a55e4a5bf37cf4","name":"Test Felix","closed":false,"pos":32767.5,"idBoard":"5eb9ba14074fa644a2dac98f","limits":{}}
-#Response2: {"id":"5ebac19b1e040e525d9851c2","name":"Test Felix","closed":false,"pos":16383.75,"idBoard":"5eb9ba14074fa644a2dac98f","limits":{}}
