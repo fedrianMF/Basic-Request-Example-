@@ -3,3 +3,8 @@ __pycache__/
 
 # Added git dependencies
 .git/
+# Python Environmet
+.venv
+
+# VSCode Configuration
+.vscode
