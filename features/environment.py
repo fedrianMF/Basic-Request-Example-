@@ -1,12 +1,14 @@
 """Environment module for behave"""
 from behave.model_core import Status
+from features.core.requests_manager import RequestsManager
 from features.core.example import Example
 
 
 def before_all(context):
-    """Before_all hook to init webdriver and set the context.driver
+    """Before_all
     """
     context.example = Example()
+    context.rm = RequestsManager()
 
 
 def before_scenario(context, scenario):  # pylint: disable=W0613
