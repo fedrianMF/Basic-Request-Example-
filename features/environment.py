@@ -1,7 +1,7 @@
 """Environment module for behave"""
 from behave.model_core import Status
-from features.core.requests_manager import RequestsManager
-from features.core.example import Example
+from main.core.requests_manager import RequestsManager
+from main.core.example import Example
 
 
 def before_all(context):
