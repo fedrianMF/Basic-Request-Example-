@@ -1,6 +1,7 @@
 """Module for example steps"""
 from behave import step  # pylint: disable=E0611
 from assertpy import assert_that
+from main.core.utils.request_utils import RequestUtils as utils
 
 
 @step(u'Defines "{http_method}" request to "{endpoint}"')
@@ -15,6 +16,7 @@ def step_retrieve_numbers_dt(context, http_method, endpoint):
     :type endpoint: obj
     """
     context.endpoint = endpoint
+    context.data_table = context.table
     context.http_method = http_method
 
 
@@ -26,7 +28,8 @@ def step_impl_send(context):
     :type context: obj
     """
     context.status_code, context.json_response = context.rm.do_request(context.http_method,
-                                                                       context.endpoint)
+                                                                       context.endpoint,
+                                                                       context.data_table)
 
 
 @step(u'The status code should be {status_code:d}')
@@ -39,3 +42,16 @@ def step_impl_status(context, status_code):
     :type status_code: int
     """
     assert_that(context.status_code).is_equal_to(status_code)
+
+
+@step(u'Validates response body with')
+def step_impl_validate_body(context):
+    """Sends request
+
+    :param context: Global context from behave
+    :type context: obj
+    """
+    body = utils.generate_data(context.table)
+    assert_that(body.items() <= context.json_response.items(),
+                f"Expected that {body} is in {context.json_response}").is_true()
+    # BodyValidator.validate(context.json_response, context.table)

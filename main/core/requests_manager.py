@@ -2,6 +2,7 @@
 import json
 import requests
 from requests_oauthlib import OAuth1
+from main.core.utils.request_utils import RequestUtils as utils
 
 
 class RequestsManager:
@@ -23,12 +24,13 @@ class RequestsManager:
         :param endpoint: Application's endpoint method
         :type endpoint: obj
         """
+        data = utils.generate_data(body)
         url = f"{self.basic_url}{endpoint}"
         if http_method == "GET":
             response = requests.request(str(http_method), url, headers=self.headers, auth=self.auth)
         else:
             response = requests.request(str(http_method), url, headers=self.headers,
-                                        auth=self.auth, data=json.dumps(body))
+                                        auth=self.auth, data=data)
         return response.status_code, response.json()
 
     def delete_request(self, http_method, endpoint, body=None):
