@@ -3,6 +3,7 @@ import json
 import requests
 from requests_oauthlib import OAuth1
 from main.core.utils.request_utils import RequestUtils as utils
+from main.core.utils.api_constants import HttpMethods as method
 
 
 class RequestsManager:
@@ -15,7 +16,7 @@ class RequestsManager:
                            'c96a92fc1940b3648744f19ab5bca9a3c49213dea7c08f8a5c8bb068b9674183',
                            'c96a92fc1940b3648744f19ab5bca9a3c49213dea7c08f8a5c8bb068b9674183',
                            '68665b1c48cc20381d1c7f3f75f80db7298cba95a02dbc86a564bf9890aa83e8')
-
+    
     def do_request(self, http_method, endpoint, body=None):
         """Sends request
 
@@ -26,16 +27,17 @@ class RequestsManager:
         """
         data = utils.generate_data(body)
         url = f"{self.basic_url}{endpoint}"
-        if http_method == "GET":
+        if http_method == method.GET.value:
             response = requests.request(str(http_method), url, headers=self.headers, auth=self.auth)
         else:
             response = requests.request(str(http_method), url, headers=self.headers,
                                         auth=self.auth, data=data)
         return response.status_code, response.json()
 
-    def delete_request(self, http_method, endpoint, body=None):
+    def delete_request(self, endpoint):
         """
             Basic Method to delete resources
         """
-        # url = f"{self.basic_url}{endpoint}"
-        # code to delete resource
+        url = f"{self.basic_url}{endpoint}"
+        response = requests.request(method.DELETE.value, url, headers=self.headers, auth=self.auth)
+        return response.status_code, response.json()

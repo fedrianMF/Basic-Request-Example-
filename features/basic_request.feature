@@ -7,7 +7,7 @@ Feature: Basic Request
         #And The schema is validated with "schema.json"
         Then The status code should be 200
 
-    @post
+    @post @delete.boards
     Scenario: Create a Board
         Given Defines "POST" request to "/boards/"
             | key  |   value   |
@@ -19,5 +19,4 @@ Feature: Basic Request
             | key        |  value   |
             | name       | MyBoard  |
             | desc       |          |
-            | closed     |  False   |
-            | pinned     |  False   |
+            | bad |         |

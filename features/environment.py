@@ -9,6 +9,7 @@ def before_all(context):
     """
     context.example = Example()
     context.rm = RequestsManager()
+    context.id_dictionary = {}
 
 
 def before_scenario(context, scenario):  # pylint: disable=W0613
@@ -21,7 +22,7 @@ def after_scenario(context, scenario):  # pylint: disable=W0613
     """After scenario hook if the scenario is failed take a screenshot
     """
     if scenario.status == Status.failed:
-        print("============ Ooops Failed scenario {scenario.name}")
+        print(f"============ Ooops Failed scenario {scenario.name}")
     print(f"=============Finished {scenario.name}")
 
 
@@ -33,3 +34,15 @@ def before_feature(context, feature):  # pylint: disable=W0613
 def after_feature(context, feature):  # pylint: disable=W0613
     """after feature hook
     """
+
+
+def before_tag(context, tag):  # pylint: disable=W0613
+    """Just a simple before_tag hook
+    """
+
+
+def after_tag(context, tag):  # pylint: disable=W0613
+    """Just a simple after_tag hook
+    """
+    if tag == "delete.boards":
+        context.rm.delete_request(f"/boards/{context.id_dictionary[tag.split('.')[-1]]}")

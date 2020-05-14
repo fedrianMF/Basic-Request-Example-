@@ -1,7 +1,13 @@
 assertpy>=1.0
 behave>=1.2.6
-pylint==2.4.4
 requests>=2.23.0
+requests_oauthlib
+
+# Linters
 pycodestyle
 flake8
-requests_oauthlib
+pylint==2.4.4
+
+# Formatters
+behave-html-formatter
+allure-behave

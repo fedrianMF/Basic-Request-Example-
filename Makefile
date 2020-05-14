@@ -3,7 +3,7 @@ init:
 
 check:
 	flake8 features/
-	python -m pylint features/
+	pylint features/
 	pycodestyle features/
 
 test:
