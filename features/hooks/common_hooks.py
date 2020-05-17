@@ -1,14 +1,15 @@
 """Module for hooks"""
+from behave import fixture
+from main.core.utils.api_constants import HttpMethods as method
 
 
-def use_fixture_by_tag(tag, context, fixture_registry):  # pylint: disable=W0613
-    """Method to use fixture and filter by a tag value
+@fixture
+def delete_resource(context, endpoint, tag):
+    """Basic hook to delete board
 
-    Args:
-        context (Context): Context
-        fixture_registry (str): Fixture to be search
+    :param context: Global context from behave
+    :type context: obj
+    :param tag: tag to be retrieved
     """
-    fixture_data = fixture_registry.get(tag, None)
-    if fixture_data is None:
-        raise LookupError("Unknown fixture-tag: %s" % tag)
-    return fixture_data(context)
+    context.rm.do_request(method.DELETE.value, endpoint,
+                          id=context.id_dictionary[tag.split('.')[-1]])

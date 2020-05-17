@@ -3,3 +3,6 @@ __pycache__/
 
 # Added git dependencies
 .git/
+
+# Reports
+reports/*

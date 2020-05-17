@@ -1,14 +1,16 @@
 """Environment module for behave"""
 from behave.model_core import Status
+from behave.fixture import use_fixture_by_tag, fixture_call_params
 from main.core.requests_manager import RequestsManager
 from main.core.example import Example
+from features.hooks.common_hooks import delete_resource
 
 
 def before_all(context):
     """Before_all
     """
     context.example = Example()
-    context.rm = RequestsManager()
+    context.rm = RequestsManager.get_instance()
     context.id_dictionary = {}
 
 
@@ -36,13 +38,26 @@ def after_feature(context, feature):  # pylint: disable=W0613
     """
 
 
+FIXTURE_REGISTRY = {
+    "fixture.delete.boards": fixture_call_params(delete_resource,
+                                                 endpoint="/boards",
+                                                 tag="fixture.delete.boards")
+}
+
+
 def before_tag(context, tag):  # pylint: disable=W0613
     """Just a simple before_tag hook
     """
 
 
-def after_tag(context, tag):  # pylint: disable=W0613
+def after_tag(context, tag):  # pylint: disable=W0613, R1710
     """Just a simple after_tag hook
     """
-    if tag == "delete.boards":
-        context.rm.delete_request(f"/boards/{context.id_dictionary[tag.split('.')[-1]]}")
+    if tag.startswith("fixture."):
+        return use_fixture_by_tag(tag, context, FIXTURE_REGISTRY)
+
+
+def after_all(context):
+    """Before_all
+    """
+    context.rm.close_session()
