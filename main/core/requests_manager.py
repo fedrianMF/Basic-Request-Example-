@@ -40,7 +40,7 @@ class RequestsManager:
         :param endpoint: Application's endpoint method
         :type endpoint: obj
         """
-        self.auth = kwargs.get("auth",self.auth)
+        self.auth = kwargs.get("auth", self.auth)
         url = f"{self.basic_url}{endpoint}"
         if http_method == method.GET.value:
             response = self.session.request(http_method, url, headers=self.headers, auth=self.auth)
