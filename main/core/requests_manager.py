@@ -1,6 +1,7 @@
 """Module for requests"""
 import json
 import requests
+from http import HTTPStatus
 from requests import Session, Request
 from requests_oauthlib import OAuth1
 from main.core.utils.request_utils import RequestUtils as utils
@@ -52,6 +53,8 @@ class RequestsManager:
             data = utils.generate_data(body)
             response = self.session.request(http_method, url, headers=self.headers,
                                         auth=self.auth, data=data)
+            if response.status_code is not HTTPStatus.OK.value:
+                return response.status_code, {"message": response.text}
         return response.status_code, response.json()
 
     def close_session(self):

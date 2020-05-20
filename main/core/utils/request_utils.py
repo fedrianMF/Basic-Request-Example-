@@ -18,11 +18,5 @@ class RequestUtils:
 
     @staticmethod
     def parse(value):
-        values = {
-            "True": True,
-            "False": False,
-            "None": None
-        }
-        if value in values:
-            value = values.get(value)
-        return value
+        parsed_params = {"True": "true", "False": "false", "None": None}
+        return parsed_params.get(value) if value.lower() in parsed_params else value

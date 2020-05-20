@@ -1,4 +1,5 @@
 """Module for example steps"""
+from http import HTTPStatus
 from behave import step, use_step_matcher  # pylint: disable=E0611
 from assertpy import assert_that
 from main.core.utils.request_utils import RequestUtils as utils
@@ -37,7 +38,7 @@ def step_impl_send(context):
     context.status_code, context.json_response = context.rm.do_request(context.http_method,
                                                                        context.endpoint,
                                                                        context.data_table)
-    if context.http_method == method.POST.value:
+    if context.http_method == method.POST.value and context.status_code is HTTPStatus.OK.value:
         context.id_dictionary[context.endpoint.replace("/", "")] = context.json_response["id"]
 
 

@@ -7,19 +7,6 @@ Feature: Basic Request
         #And The schema is validated with "schema.json"
         Then The status code should be 200
 
-    @post @delete.boards
-    Scenario: Create a Board
-        Given Defines "POST" request to "/boards/"
-            | key  |   value   |
-            | name |  MyBoard  |
-        When The request is sent
-        #And The schema is validated with "schema.json"
-        Then The status code should be 200
-        And Validates response body with
-            | key        |  value   |
-            | name       | MyBoard  |
-            | desc       |          |
-
     @post2 @fixture.delete.boards
     Scenario: Create a Board
         Given Defines "POST" request to "/boards/"
@@ -32,3 +19,17 @@ Feature: Basic Request
             | key        |  value   |
             | name       | MyBoard  |
             | desc       |          |
+
+    @negative
+    Scenario: Create a Board with invalid values
+        Given Defines "POST" request to "/boards/"
+            |        key       |   value   |
+            |        name      |  MyBoard  |
+            |        desc      |           |
+            | prefs_cardCovers |    None   |
+        When The request is sent
+        #And The schema is validated with "schema.json"
+        Then The status code should be 400
+        And Validates response body with
+            | key        |               value                |
+            | message    | invalid value for prefs_cardCovers |
