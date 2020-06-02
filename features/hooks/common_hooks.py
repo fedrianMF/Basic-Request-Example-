@@ -1,7 +1,7 @@
 """Module for hooks"""
 from behave import fixture
 from main.core.utils.api_constants import HttpMethods as method
-from main.core.requests_manager import RequestsManager
+from main.core.requests.requests_manager import RequestsManager
 
 
 @fixture

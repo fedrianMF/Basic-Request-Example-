@@ -2,6 +2,7 @@ assertpy>=1.0
 behave>=1.2.6
 requests>=2.23.0
 requests_oauthlib
+selenium>=3.141.0
 
 # Linters
 pycodestyle

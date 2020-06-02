@@ -12,7 +12,10 @@ Feature: Basic Request
         Given Defines "POST" request to "/boards/"
             | key  |   value   |
             | name |  MyBoard  |
-        When The request is sent
+        And The request is sent
+        Given Defines "PUT" request to "/boards/<board_id>"
+            | key  |   value   |
+            | name |  MyBoard  |
         #And The schema is validated with "schema.json"
         Then The status code should be 200
         And Validates response body with

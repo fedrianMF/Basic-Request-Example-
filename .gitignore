@@ -6,3 +6,10 @@ __pycache__/
 
 # Reports
 reports/*
+
+# ide dependencies
+.vscode/
+
+# logs
+debug.log
+geckodriver.log

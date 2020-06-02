@@ -1,7 +1,8 @@
 """Environment module for behave"""
 from behave.model_core import Status
 from behave.fixture import use_fixture_by_tag, fixture_call_params
-from main.core.requests_manager import RequestsManager
+from main.core.selenium.driver_factory import DriverFactory
+from main.core.requests.requests_manager import RequestsManager
 from main.core.example import Example
 from features.hooks.common_hooks import delete_resource
 
@@ -11,6 +12,11 @@ def before_all(context):
     """
     context.example = Example()
     context.rm = RequestsManager.get_instance()
+    context.driver = DriverFactory.get_instance("Chrome")
+    context.driver.set_page_load_timeout(60)
+    context.driver.implicitly_wait(15)
+    context.driver.maximize_window()
+    context.driver.get("https://trello.com/login")
     context.id_dictionary = {}
 
 
@@ -60,4 +66,5 @@ def after_tag(context, tag):  # pylint: disable=W0613, R1710
 def after_all(context):
     """Before_all
     """
+    context.driver.quit()
     context.rm.close_session()
