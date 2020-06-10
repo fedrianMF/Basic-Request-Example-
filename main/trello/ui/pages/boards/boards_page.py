@@ -2,7 +2,7 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-
+from main.core.utils.logger.logger_decorator import Log
 
 class BoardsPage:
     """BoardsPage
@@ -14,6 +14,7 @@ class BoardsPage:
         self.driver = driver
         WebDriverWait(self.driver, 60).until(EC.visibility_of(self.driver.find_element(*self.plus_btn)))
 
+    @Log(__name__)
     def click_board(self, board_name):
         """Method to fill user and password
 
@@ -23,6 +24,7 @@ class BoardsPage:
         board_name = (By.CSS_SELECTOR, f"[class*='board'][title='{board_name}']")
         self.driver.find_element(*board_name).click()
 
+    @Log(__name__)
     def click_menu(self, menu_name):
         """Method to click menu
 

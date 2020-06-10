@@ -12,5 +12,3 @@ Feature: Basic UI of Trello
             |     key    |     value    |
             | BoardTitle |    BoardUI   |
             |   Privacy  | Team Visible |
-        #And I go to Boards
-        #And the "MyBoard" board must appears on boards list
